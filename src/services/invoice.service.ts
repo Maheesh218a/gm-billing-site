@@ -140,6 +140,24 @@ export const invoiceService = {
           lastBookingDate: serverTimestamp()
         });
       }
+
+      // 5. Create Payment record if paidAmount > 0
+      if (invoiceData.paidAmount && invoiceData.paidAmount > 0) {
+        const paymentRef = doc(collection(db, 'payments'));
+        transaction.set(paymentRef, {
+          invoiceId: newInvoiceRef.id,
+          invoiceNumber: generatedInvoiceNumber,
+          customerId: invoiceData.customerId || '',
+          customerName: invoiceData.customerName || 'Unknown Customer',
+          amount: invoiceData.paidAmount,
+          paymentDate: new Date().toISOString(),
+          paymentMethod: 'Cash', // Defaulting to Cash for initial invoice payments
+          status: 'Completed',
+          notes: 'Initial payment recorded at invoice creation',
+          createdBy: invoiceData.createdBy || 'System',
+          createdAt: serverTimestamp(),
+        });
+      }
     });
 
     return newDocRefId;
