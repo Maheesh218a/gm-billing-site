@@ -9,7 +9,7 @@ import type { Customer } from '../../services/customer.service';
 import { ArrowLeft, Download, Printer, Share2, Edit, Globe, MessageCircle } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import QRCode from 'react-qr-code';
-import html2canvas from 'html2canvas';
+import * as htmlToImage from 'html-to-image';
 import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
@@ -68,15 +68,18 @@ export const InvoiceView: React.FC = () => {
     if (!invoiceRef.current || !invoice) return;
     const toastId = toast.loading('Generating PDF...');
     try {
-      const canvas = await html2canvas(invoiceRef.current, { 
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
+      const imgData = await htmlToImage.toPng(invoiceRef.current, { 
+        pixelRatio: 2,
+        backgroundColor: '#ffffff'
       });
-      const imgData = canvas.toDataURL('image/png');
+      
+      const img = new window.Image();
+      img.src = imgData;
+      await new Promise((resolve) => { img.onload = resolve; });
+
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfHeight = (img.height * pdfWidth) / img.width;
       
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save(`${invoice.invoiceNumber}.pdf`);
