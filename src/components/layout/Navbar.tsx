@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Search, Bell, Moon, Sun, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { invoiceService } from '../../services/invoice.service';
+import { customerService } from '../../services/customer.service';
+import { vehicleService } from '../../services/vehicle.service';
 import dayjs from 'dayjs';
 
 interface NavbarProps {
@@ -20,6 +23,37 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
   });
   const [currentTime, setCurrentTime] = useState(dayjs());
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Search State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [allData, setAllData] = useState({ invoices: [] as any[], customers: [] as any[], vehicles: [] as any[] });
+  
+  useEffect(() => {
+    // Load data for global search
+    const unsubI = invoiceService.subscribeToInvoices(data => setAllData(prev => ({ ...prev, invoices: data })));
+    const unsubC = customerService.subscribeToCustomers(data => setAllData(prev => ({ ...prev, customers: data })));
+    const unsubV = vehicleService.subscribeToVehicles(data => setAllData(prev => ({ ...prev, vehicles: data })));
+    
+    return () => { unsubI(); unsubC(); unsubV(); };
+  }, []);
+
+  const searchResults = {
+    invoices: allData.invoices.filter(i => 
+      i.invoiceNumber?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      i.customerName?.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 3),
+    customers: allData.customers.filter(c => 
+      c.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.mobileNumber?.includes(searchQuery)
+    ).slice(0, 3),
+    vehicles: allData.vehicles.filter(v => 
+      v.vehicleName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.registrationNumber?.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 3)
+  };
+
+  const hasResults = searchResults.invoices.length > 0 || searchResults.customers.length > 0 || searchResults.vehicles.length > 0;
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(dayjs()), 1000);
@@ -58,17 +92,82 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
         </div>
 
         {/* Center - Search (Hidden on small screens) */}
-        <div className="hidden md:flex flex-1 max-w-md mx-4">
+        <div className="hidden md:flex flex-1 max-w-xl mx-4 relative">
           <div className="relative w-full">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-gray-400" />
             </div>
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setShowSearch(true)}
+              onBlur={() => setTimeout(() => setShowSearch(false), 200)}
               placeholder="Search invoices, customers, vehicles..."
-              className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl leading-5 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl leading-5 bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all sm:text-sm"
             />
           </div>
+
+          {/* Search Dropdown */}
+          {showSearch && searchQuery.length > 1 && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+              <div className="max-h-96 overflow-y-auto p-2">
+                {!hasResults ? (
+                  <div className="p-4 text-center text-sm text-gray-500">No results found for "{searchQuery}"</div>
+                ) : (
+                  <>
+                    {/* Invoices */}
+                    {searchResults.invoices.length > 0 && (
+                      <div className="mb-2">
+                        <div className="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Invoices</div>
+                        {searchResults.invoices.map(inv => (
+                          <button key={inv.id} onClick={() => navigate(`/invoices/${inv.id}`)} className="w-full text-left flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <div>
+                              <p className="text-sm font-medium text-gray-900 dark:text-white">{inv.invoiceNumber}</p>
+                              <p className="text-xs text-gray-500">{inv.customerName}</p>
+                            </div>
+                            <span className={`text-xs px-2 py-1 rounded-full ${inv.status === 'Paid' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>{inv.status}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Customers */}
+                    {searchResults.customers.length > 0 && (
+                      <div className="mb-2">
+                        <div className="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Customers</div>
+                        {searchResults.customers.map(cus => (
+                          <button key={cus.id} onClick={() => navigate(`/customers/${cus.id}`)} className="w-full text-left flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <div>
+                              <p className="text-sm font-medium text-gray-900 dark:text-white">{cus.fullName}</p>
+                              <p className="text-xs text-gray-500">{cus.mobileNumber}</p>
+                            </div>
+                            <span className="text-xs text-primary">{cus.customerType}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Vehicles */}
+                    {searchResults.vehicles.length > 0 && (
+                      <div>
+                        <div className="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Vehicles</div>
+                        {searchResults.vehicles.map(veh => (
+                          <button key={veh.id} onClick={() => navigate(`/vehicles/${veh.id}`)} className="w-full text-left flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <div>
+                              <p className="text-sm font-medium text-gray-900 dark:text-white">{veh.vehicleName}</p>
+                              <p className="text-xs text-gray-500">{veh.registrationNumber}</p>
+                            </div>
+                            <span className="text-xs text-indigo-600 dark:text-indigo-400">{veh.vehicleType}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Right Side */}
