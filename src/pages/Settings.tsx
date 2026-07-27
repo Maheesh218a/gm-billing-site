@@ -72,6 +72,7 @@ export const Settings: React.FC = () => {
         <Card className="w-full md:w-64 flex-shrink-0">
           <div className="p-2 flex flex-col space-y-1">
             <button
+              type="button"
               onClick={() => setActiveTab('profile')}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'profile' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
@@ -80,6 +81,7 @@ export const Settings: React.FC = () => {
               <User className="w-5 h-5" /> Profile Settings
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('company')}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'company' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
@@ -88,6 +90,7 @@ export const Settings: React.FC = () => {
               <Building className="w-5 h-5" /> Company Profile
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('notifications')}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'notifications' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
@@ -96,6 +99,7 @@ export const Settings: React.FC = () => {
               <Bell className="w-5 h-5" /> Notifications
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('security')}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'security' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
@@ -104,6 +108,7 @@ export const Settings: React.FC = () => {
               <Shield className="w-5 h-5" /> Security
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('appearance')}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'appearance' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
@@ -129,7 +134,7 @@ export const Settings: React.FC = () => {
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white">Profile Photo</h3>
                     <p className="text-sm text-gray-500 mb-3">JPG, GIF or PNG. Max size of 800K</p>
-                    <Button variant="outline" size="sm">Change Photo</Button>
+                    <Button type="button" variant="outline" size="sm">Change Photo</Button>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -198,7 +203,7 @@ export const Settings: React.FC = () => {
                   </div>
                 ))}
                 <div className="flex justify-end pt-4">
-                  <Button type="button" isLoading={isSaving}>Save Preferences</Button>
+                  <Button type="submit" isLoading={isSaving}>Save Preferences</Button>
                 </div>
               </CardBody>
             </Card>
