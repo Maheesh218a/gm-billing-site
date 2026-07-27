@@ -83,10 +83,22 @@ export const invoiceService = {
     let newDocRefId = '';
 
     await runTransaction(db, async (transaction) => {
+      // --- ALL READS MUST COME FIRST ---
+      
       // 1. Get next sequence
       const counterDoc = await transaction.get(counterRef);
-      let nextSequence = 1;
       
+      // 2. Get customer if applicable
+      let customerDoc = null;
+      let customerRef = null;
+      if (invoiceData.customerId) {
+        customerRef = doc(db, 'customers', invoiceData.customerId);
+        customerDoc = await transaction.get(customerRef);
+      }
+
+      // --- ALL WRITES MUST COME AFTER READS ---
+      
+      let nextSequence = 1;
       if (!counterDoc.exists()) {
         transaction.set(counterRef, { sequence: 1 });
       } else {
@@ -96,7 +108,7 @@ export const invoiceService = {
       
       generatedInvoiceNumber = `GM-${today}-${nextSequence.toString().padStart(5, '0')}`;
       
-      // 2. Create invoice document
+      // 3. Create invoice document
       const newInvoiceRef = doc(collection(db, COLLECTION_NAME));
       newDocRefId = newInvoiceRef.id;
       
@@ -110,23 +122,17 @@ export const invoiceService = {
         updatedAt: serverTimestamp(),
       });
       
-      // Note: We might also want to update customer balance and lifetime revenue here,
-      // but typically we update those when a PAYMENT is made, not just when invoice is created.
-      // However, outstanding balance should increase. 
-      if (invoiceData.customerId) {
-        const customerRef = doc(db, 'customers', invoiceData.customerId);
-        const customerDoc = await transaction.get(customerRef);
-        if (customerDoc.exists()) {
-          const currentBalance = customerDoc.data().outstandingBalance || 0;
-          const currentBookings = customerDoc.data().totalBookings || 0;
-          const newBalance = currentBalance + ((invoiceData.grandTotal || 0) - (invoiceData.paidAmount || 0));
-          
-          transaction.update(customerRef, {
-            outstandingBalance: newBalance,
-            totalBookings: currentBookings + 1,
-            lastBookingDate: serverTimestamp()
-          });
-        }
+      // 4. Update customer balance
+      if (customerDoc && customerDoc.exists() && customerRef) {
+        const currentBalance = customerDoc.data().outstandingBalance || 0;
+        const currentBookings = customerDoc.data().totalBookings || 0;
+        const newBalance = currentBalance + ((invoiceData.grandTotal || 0) - (invoiceData.paidAmount || 0));
+        
+        transaction.update(customerRef, {
+          outstandingBalance: newBalance,
+          totalBookings: currentBookings + 1,
+          lastBookingDate: serverTimestamp()
+        });
       }
     });
 
