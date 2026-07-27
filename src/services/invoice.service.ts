@@ -98,9 +98,9 @@ export const invoiceService = {
 
       // --- ALL WRITES MUST COME AFTER READS ---
       
-      let nextSequence = 1;
+      let nextSequence = 101;
       if (!counterDoc.exists()) {
-        transaction.set(counterRef, { sequence: 1 });
+        transaction.set(counterRef, { sequence: 101 });
       } else {
         nextSequence = counterDoc.data().sequence + 1;
         transaction.update(counterRef, { sequence: nextSequence });
