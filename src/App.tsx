@@ -5,6 +5,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import CustomerList from './pages/customers/CustomerList';
+import CustomerForm from './pages/customers/CustomerForm';
+import CustomerDetails from './pages/customers/CustomerDetails';
 
 import Layout from './components/layout/Layout';
 
@@ -18,6 +21,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/customers" element={<CustomerList />} />
+              <Route path="/customers/create" element={<CustomerForm />} />
+              <Route path="/customers/:id/edit" element={<CustomerForm />} />
+              <Route path="/customers/:id" element={<CustomerDetails />} />
               {/* Add more protected routes here */}
             </Route>
           </Route>
