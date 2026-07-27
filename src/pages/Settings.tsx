@@ -11,26 +11,34 @@ import toast from 'react-hot-toast';
 export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  const { register, handleSubmit, reset } = useForm<AppSettings>({
-    defaultValues: {
-      profile: { firstName: 'Admin', lastName: 'User', email: 'admin@gmbilling.com', phone: '+94 77 123 4567' },
-      company: { 
-        companyName: 'GM Transportation', 
-        registrationNumber: 'PV 123456', 
-        address: 'No. 123, Luxury Road, Colombo 03', 
-        contactEmail: 'info@gmbilling.com', 
-        contactPhone: '+94 11 234 5678',
-        invoiceFooterNotes: 'Thank you for your business. Please make payments to Bank of Ceylon, A/C: 12345678.'
-      }
-    }
-  });
+  const { register, handleSubmit, reset } = useForm<AppSettings>();
 
   useEffect(() => {
     const fetchSettings = async () => {
-      const data = await settingsService.getSettings();
-      if (data) {
-        reset(data);
+      try {
+        const data = await settingsService.getSettings();
+        if (data) {
+          reset(data);
+        } else {
+          // fallback to default if no doc exists
+          reset({
+            profile: { firstName: 'Admin', lastName: 'User', email: 'admin@gmbilling.com', phone: '+94 77 123 4567' },
+            company: { 
+              companyName: 'GM Transportation', 
+              registrationNumber: 'PV 123456', 
+              address: 'No. 123, Luxury Road, Colombo 03', 
+              contactEmail: 'info@gmbilling.com', 
+              contactPhone: '+94 11 234 5678',
+              invoiceFooterNotes: 'Thank you for your business. Please make payments to Bank of Ceylon, A/C: 12345678.'
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Failed to load settings", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchSettings();
@@ -47,6 +55,10 @@ export const Settings: React.FC = () => {
       setIsSaving(false);
     }
   };
+
+  if (isLoading) {
+    return <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-5xl mx-auto pb-10">
