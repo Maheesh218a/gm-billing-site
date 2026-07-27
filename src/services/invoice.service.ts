@@ -1,4 +1,4 @@
-import { collection, doc, runTransaction, query, where, getDocs, orderBy, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, runTransaction, query, where, getDocs, getDoc, orderBy, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import dayjs from 'dayjs';
 
@@ -139,6 +139,23 @@ export const invoiceService = {
     return newDocRefId;
   },
   
+  updateInvoice: async (id: string, invoiceData: Partial<Invoice>): Promise<void> => {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    await updateDoc(docRef, {
+      ...invoiceData,
+      updatedAt: serverTimestamp()
+    });
+  },
+
+  getInvoiceById: async (id: string): Promise<Invoice | null> => {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as Invoice;
+    }
+    return null;
+  },
+
   updateInvoiceStatus: async (id: string, status: string): Promise<void> => {
     const docRef = doc(db, COLLECTION_NAME, id);
     await updateDoc(docRef, {

@@ -54,8 +54,9 @@ function App() {
 
               <Route path="/invoices" element={<Navigate to="/invoices/history" replace />} />
               <Route path="/invoices/history" element={<InvoiceList />} />
-              <Route path="/invoices/create" element={<InvoiceForm />} />
-              <Route path="/invoices/:id" element={<InvoiceView />} />
+              <Route path="invoices/create" element={<InvoiceForm />} />
+              <Route path="invoices/:id/edit" element={<InvoiceForm />} />
+              <Route path="invoices/:id" element={<InvoiceView />} />
 
               <Route path="/payments" element={<PaymentList />} />
 

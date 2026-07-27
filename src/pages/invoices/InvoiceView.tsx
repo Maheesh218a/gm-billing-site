@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { invoiceService } from '../../services/invoice.service';
 import type { Invoice } from '../../services/invoice.service';
-import { ArrowLeft, Download, Printer, Share2 } from 'lucide-react';
+import { ArrowLeft, Download, Printer, Share2, Edit } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import QRCode from 'react-qr-code';
 import html2canvas from 'html2canvas';
@@ -77,14 +77,20 @@ export const InvoiceView: React.FC = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Invoice Details</h1>
         </div>
         <div className="flex gap-2">
+          <Button variant="outline" leftIcon={<Edit className="w-4 h-4" />} onClick={() => navigate(`/invoices/${invoice.id}/edit`)}>Edit</Button>
           <Button variant="outline" leftIcon={<Share2 className="w-4 h-4" />}>Share</Button>
           <Button variant="outline" leftIcon={<Printer className="w-4 h-4" />} onClick={handlePrint}>Print</Button>
           <Button leftIcon={<Download className="w-4 h-4" />} onClick={handleDownloadPDF}>Download PDF</Button>
         </div>
       </div>
 
-      <div className="bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-gray-100 print:shadow-none print:border-none print:p-0" ref={invoiceRef}>
+      <div className="bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-gray-100 print:shadow-none print:border-none print:p-0 relative overflow-hidden" ref={invoiceRef}>
         
+        {invoice.status === 'Paid' && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 border-8 border-red-500 text-red-500 font-black text-6xl md:text-8xl py-4 px-12 rounded-2xl opacity-20 pointer-events-none select-none z-10 print:opacity-30">
+            PAID
+          </div>
+        )}
         {/* Header */}
         <div className="flex justify-between items-start border-b border-gray-200 pb-8">
           <div>

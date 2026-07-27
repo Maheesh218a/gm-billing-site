@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { ArrowLeft, Save, Plus, Trash2 } from 'lucide-react';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
@@ -26,7 +26,10 @@ export const InvoiceForm: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [isSaving, setIsSaving] = useState(false);
 
-  const { register, control, handleSubmit, watch, setValue } = useForm<Invoice>({
+  const { id } = useParams<{ id: string }>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { register, control, handleSubmit, watch, setValue, reset } = useForm<Invoice>({
     defaultValues: {
       status: 'Pending',
       items: [{ id: uuidv4(), description: '', quantity: 1, unitPrice: undefined as unknown as number, discount: undefined as unknown as number, tax: undefined as unknown as number, amount: undefined as unknown as number }],
@@ -55,8 +58,29 @@ export const InvoiceForm: React.FC = () => {
     const unsubC = customerService.subscribeToCustomers(setCustomers);
     const unsubV = vehicleService.subscribeToVehicles(setVehicles);
     const unsubD = driverService.subscribeToDrivers(setDrivers);
+    
+    if (id) {
+      const fetchInvoice = async () => {
+        setIsLoading(true);
+        try {
+          const invoice = await invoiceService.getInvoiceById(id);
+          if (invoice) {
+            reset(invoice);
+          } else {
+            toast.error("Invoice not found");
+            navigate('/invoices');
+          }
+        } catch (error) {
+          toast.error("Failed to load invoice");
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchInvoice();
+    }
+    
     return () => { unsubC(); unsubV(); unsubD(); };
-  }, []);
+  }, [id, reset, navigate]);
 
   useEffect(() => {
     // Auto-update customer name when customerId changes
@@ -111,28 +135,40 @@ export const InvoiceForm: React.FC = () => {
 
     setIsSaving(true);
     try {
-      data.createdBy = userProfile?.name || 'Unknown User';
-      const id = await invoiceService.createInvoice(data);
-      toast.success("Invoice created successfully!");
-      navigate(`/invoices/${id}`);
+      if (id) {
+        await invoiceService.updateInvoice(id, data);
+        toast.success("Invoice updated successfully!");
+        navigate(`/invoices/${id}`);
+      } else {
+        data.createdBy = userProfile?.name || 'Unknown User';
+        const newId = await invoiceService.createInvoice(data);
+        toast.success("Invoice created successfully!");
+        navigate(`/invoices/${newId}`);
+      }
     } catch (error: any) {
-      toast.error(error.message || "Failed to create invoice.");
+      toast.error(error.message || (id ? "Failed to update invoice." : "Failed to create invoice."));
     } finally {
       setIsSaving(false);
     }
   };
 
+  if (isLoading) {
+    return <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
+  }
+
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-20">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/invoices')} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 ">
+          <button onClick={() => navigate('/invoices')} className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create Invoice</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {id ? 'Edit Invoice' : 'Create Invoice'}
+          </h1>
         </div>
         <Button type="button" isLoading={isSaving} leftIcon={<Save className="w-4 h-4" />} onClick={handleSubmit(onSubmit)}>
-          Save Invoice
+          {id ? 'Update Invoice' : 'Save Invoice'}
         </Button>
       </div>
 
