@@ -6,6 +6,8 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
+import Layout from './components/layout/Layout';
+
 function App() {
   return (
     <AuthProvider>
@@ -14,8 +16,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            {/* Add more protected routes here */}
+            <Route element={<Layout />}>
+              <Route path="/" element={<Dashboard />} />
+              {/* Add more protected routes here */}
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
