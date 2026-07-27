@@ -29,10 +29,10 @@ export const InvoiceForm: React.FC = () => {
   const { register, control, handleSubmit, watch, setValue } = useForm<Invoice>({
     defaultValues: {
       status: 'Pending',
-      items: [{ id: uuidv4(), description: '', quantity: 1, unitPrice: 0, discount: 0, tax: 0, amount: 0 }],
-      discount: 0,
-      tax: 0,
-      paidAmount: 0
+      items: [{ id: uuidv4(), description: '', quantity: 1, unitPrice: undefined as unknown as number, discount: undefined as unknown as number, tax: undefined as unknown as number, amount: undefined as unknown as number }],
+      discount: undefined as unknown as number,
+      tax: undefined as unknown as number,
+      paidAmount: undefined as unknown as number
     }
   });
 
@@ -183,7 +183,7 @@ export const InvoiceForm: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <Button type="button" variant="outline" size="sm" className="mt-4" leftIcon={<Plus className="w-4 h-4" />} onClick={() => append({ id: uuidv4(), description: '', quantity: 1, unitPrice: 0, discount: 0, tax: 0, amount: 0 })}>
+              <Button type="button" variant="outline" size="sm" className="mt-4" leftIcon={<Plus className="w-4 h-4" />} onClick={() => append({ id: uuidv4(), description: '', quantity: 1, unitPrice: undefined as unknown as number, discount: undefined as unknown as number, tax: undefined as unknown as number, amount: undefined as unknown as number })}>
                 Add Line Item
               </Button>
             </CardBody>
@@ -197,7 +197,7 @@ export const InvoiceForm: React.FC = () => {
             <CardBody className="space-y-4">
               <div className="flex justify-between text-gray-600 dark:text-gray-400">
                 <span>Subtotal</span>
-                <span className="font-medium text-gray-900 dark:text-white">LKR {(watchSubtotal || 0).toLocaleString()}</span>
+                <span className="font-medium text-gray-900 dark:text-white">LKR {(watchSubtotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <div className="flex justify-between items-center text-gray-600 dark:text-gray-400 gap-4">
                 <span>Total Discount</span>
@@ -210,7 +210,7 @@ export const InvoiceForm: React.FC = () => {
               
               <div className="pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
                 <span className="text-lg font-bold text-gray-900 dark:text-white">Grand Total</span>
-                <span className="text-xl font-bold text-primary dark:text-blue-400">LKR {(watchGrandTotal || 0).toLocaleString()}</span>
+                <span className="text-xl font-bold text-primary dark:text-blue-400">LKR {(watchGrandTotal || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
 
               <div className="pt-4 border-t border-gray-100 dark:border-gray-700 space-y-4">
@@ -220,7 +220,7 @@ export const InvoiceForm: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-gray-900 dark:text-white">Balance Due</span>
-                  <span className={`font-bold ${watchBalance > 0 ? 'text-danger' : 'text-green-500'}`}>LKR {(watchBalance || 0).toLocaleString()}</span>
+                  <span className={`font-bold ${watchBalance > 0 ? 'text-danger' : 'text-green-500'}`}>LKR {(watchBalance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
               </div>
 
