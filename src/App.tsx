@@ -13,6 +13,7 @@ import DriverList from './pages/drivers/DriverList';
 import InvoiceList from './pages/invoices/InvoiceList';
 import InvoiceForm from './pages/invoices/InvoiceForm';
 import PaymentList from './pages/payments/PaymentList';
+import BookingCalendar from './pages/bookings/BookingCalendar';
 
 import Layout from './components/layout/Layout';
 
@@ -47,6 +48,8 @@ function App() {
               <Route path="/invoices/:id" element={<div className="p-8">Invoice View Placeholder</div>} />
 
               <Route path="/payments" element={<PaymentList />} />
+
+              <Route path="/bookings" element={<BookingCalendar />} />
               {/* Add more protected routes here */}
             </Route>
           </Route>
