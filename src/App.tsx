@@ -9,7 +9,9 @@ import CustomerList from './pages/customers/CustomerList';
 import CustomerForm from './pages/customers/CustomerForm';
 import CustomerDetails from './pages/customers/CustomerDetails';
 import VehicleList from './pages/vehicles/VehicleList';
+import VehicleForm from './pages/vehicles/VehicleForm';
 import DriverList from './pages/drivers/DriverList';
+import DriverForm from './pages/drivers/DriverForm';
 import InvoiceList from './pages/invoices/InvoiceList';
 import InvoiceForm from './pages/invoices/InvoiceForm';
 import InvoiceView from './pages/invoices/InvoiceView';
@@ -17,6 +19,10 @@ import PublicInvoiceView from './pages/invoices/PublicInvoiceView';
 import PaymentList from './pages/payments/PaymentList';
 import BookingCalendar from './pages/bookings/BookingCalendar';
 import Settings from './pages/Settings';
+import Reports from './pages/Reports';
+import Templates from './pages/Templates';
+import Backup from './pages/Backup';
+import Logs from './pages/Logs';
 
 import Layout from './components/layout/Layout';
 
@@ -37,13 +43,13 @@ function App() {
               <Route path="/customers/:id" element={<CustomerDetails />} />
               
               <Route path="/vehicles" element={<VehicleList />} />
-              <Route path="/vehicles/create" element={<div className="p-8">Vehicle Form Placeholder</div>} />
-              <Route path="/vehicles/:id/edit" element={<div className="p-8">Vehicle Form Placeholder</div>} />
+              <Route path="/vehicles/create" element={<VehicleForm />} />
+              <Route path="/vehicles/:id/edit" element={<VehicleForm />} />
               <Route path="/vehicles/:id" element={<div className="p-8">Vehicle Details Placeholder</div>} />
               
               <Route path="/drivers" element={<DriverList />} />
-              <Route path="/drivers/create" element={<div className="p-8">Driver Form Placeholder</div>} />
-              <Route path="/drivers/:id/edit" element={<div className="p-8">Driver Form Placeholder</div>} />
+              <Route path="/drivers/create" element={<DriverForm />} />
+              <Route path="/drivers/:id/edit" element={<DriverForm />} />
               <Route path="/drivers/:id" element={<div className="p-8">Driver Details Placeholder</div>} />
 
               <Route path="/invoices" element={<Navigate to="/invoices/history" replace />} />
@@ -56,6 +62,10 @@ function App() {
               <Route path="/bookings" element={<BookingCalendar />} />
               
               <Route path="/settings" element={<Settings />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/templates" element={<Templates />} />
+              <Route path="/backup" element={<Backup />} />
+              <Route path="/logs" element={<Logs />} />
               {/* Add more protected routes here */}
             </Route>
           </Route>
