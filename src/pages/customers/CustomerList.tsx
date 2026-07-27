@@ -92,7 +92,7 @@ export const CustomerList: React.FC = () => {
                 </tr>
               ) : (
                 filteredCustomers.map((customer) => (
-                  <tr key={customer.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <tr key={customer.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 ">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="h-10 w-10 flex-shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">
@@ -132,13 +132,13 @@ export const CustomerList: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
-                        <button onClick={() => navigate(`/customers/${customer.id}`)} className="text-gray-400 hover:text-primary transition-colors p-1" title="View Details">
+                        <button onClick={() => navigate(`/customers/${customer.id}`)} className="text-gray-400 hover:text-primary p-1" title="View Details">
                           <FileText className="w-5 h-5" />
                         </button>
-                        <button onClick={() => navigate(`/customers/${customer.id}/edit`)} className="text-gray-400 hover:text-blue-500 transition-colors p-1" title="Edit">
+                        <button onClick={() => navigate(`/customers/${customer.id}/edit`)} className="text-gray-400 hover:text-blue-500 p-1" title="Edit">
                           <Edit className="w-5 h-5" />
                         </button>
-                        <button onClick={() => handleDelete(customer.id!, customer.fullName)} className="text-gray-400 hover:text-danger transition-colors p-1" title="Deactivate">
+                        <button onClick={() => handleDelete(customer.id!, customer.fullName)} className="text-gray-400 hover:text-danger p-1" title="Deactivate">
                           <Trash className="w-5 h-5" />
                         </button>
                       </div>

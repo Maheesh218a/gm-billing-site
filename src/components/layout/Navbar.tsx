@@ -64,21 +64,21 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
             <input
               type="text"
               placeholder="Search invoices, customers, vehicles..."
-              className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl leading-5 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl leading-5 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm"
             />
           </div>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-3">
-          <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 relative transition-colors">
+          <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 relative ">
             <Bell className="w-5 h-5" />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full border-2 border-white dark:border-gray-800"></span>
           </button>
           
           <button 
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 "
           >
             {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
@@ -86,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
           <div className="relative">
             <button 
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 p-1 pl-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent dark:hover:border-gray-600 transition-all"
+              className="flex items-center gap-2 p-1 pl-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent dark:hover:border-gray-600 "
             >
               <div className="flex flex-col items-end hidden sm:flex mr-1">
                 <span className="text-sm font-semibold text-gray-700 dark:text-white leading-none mb-1">

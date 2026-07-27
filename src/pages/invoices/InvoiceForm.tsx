@@ -126,7 +126,7 @@ export const InvoiceForm: React.FC = () => {
     <div className="max-w-6xl mx-auto space-y-6 pb-20">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/invoices')} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 transition-colors">
+          <button onClick={() => navigate('/invoices')} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 ">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create Invoice</h1>
@@ -191,7 +191,7 @@ export const InvoiceForm: React.FC = () => {
                       LKR {(watchItems[index]?.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
                     {fields.length > 1 && (
-                      <button type="button" onClick={() => remove(index)} className="text-danger hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors ml-2">
+                      <button type="button" onClick={() => remove(index)} className="text-danger hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg ml-2">
                         <Trash2 className="w-5 h-5" />
                       </button>
                     )}

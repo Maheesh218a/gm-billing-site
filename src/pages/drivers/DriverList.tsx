@@ -78,7 +78,7 @@ export const DriverList: React.FC = () => {
                 <tr><td colSpan={4} className="px-6 py-8 text-center text-gray-500">No drivers found.</td></tr>
               ) : (
                 filteredDrivers.map((driver) => (
-                  <tr key={driver.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <tr key={driver.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 ">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="h-10 w-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center font-bold">

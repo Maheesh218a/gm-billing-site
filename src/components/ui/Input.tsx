@@ -26,8 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={`
-              block w-full sm:text-sm rounded-xl py-2.5 transition-all duration-200
-              ${leftIcon ? 'pl-10' : 'pl-4'}
+              block w-full sm:text-sm rounded-xl py-2.5 ${leftIcon ? 'pl-10' : 'pl-4'}
               ${rightIcon ? 'pr-10' : 'pr-4'}
               ${error 
                 ? 'border-danger focus:ring-danger focus:border-danger text-danger' 

@@ -57,7 +57,7 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden dark:bg-gray-900 ">
       
       {/* Background Decorative Elements */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none mix-blend-multiply dark:mix-blend-lighten"></div>
@@ -103,7 +103,7 @@ export const Login: React.FC = () => {
                   id="email"
                   type="email"
                   autoComplete="email"
-                  className="focus:ring-primary focus:border-primary block w-full pl-10 sm:text-sm border-gray-300 rounded-xl py-3 bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600 dark:text-white transition-all duration-200 ease-in-out focus:bg-white dark:focus:bg-gray-800"
+                  className="focus:ring-primary focus:border-primary block w-full pl-10 sm:text-sm border-gray-300 rounded-xl py-3 bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600 dark:text-white focus:bg-white dark:focus:bg-gray-800"
                   placeholder="admin@gmbilling.com"
                   {...register('email', { required: 'Email is required' })}
                 />
@@ -124,7 +124,7 @@ export const Login: React.FC = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
-                  className="focus:ring-primary focus:border-primary block w-full pl-10 pr-10 sm:text-sm border-gray-300 rounded-xl py-3 bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600 dark:text-white transition-all duration-200 ease-in-out focus:bg-white dark:focus:bg-gray-800"
+                  className="focus:ring-primary focus:border-primary block w-full pl-10 pr-10 sm:text-sm border-gray-300 rounded-xl py-3 bg-gray-50 dark:bg-gray-700/50 dark:border-gray-600 dark:text-white focus:bg-white dark:focus:bg-gray-800"
                   placeholder="••••••••"
                   {...register('password', { required: 'Password is required' })}
                 />
@@ -160,7 +160,7 @@ export const Login: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleForgotPassword}
-                  className="font-medium text-primary hover:text-blue-500 transition-colors"
+                  className="font-medium text-primary hover:text-blue-500 "
                 >
                   Forgot your password?
                 </button>
@@ -171,7 +171,7 @@ export const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <Loader2 className="animate-spin h-5 w-5" />

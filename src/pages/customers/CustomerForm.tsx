@@ -64,7 +64,7 @@ export const CustomerForm: React.FC = () => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/customers')}
-            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 transition-colors"
+            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 "
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -123,7 +123,7 @@ export const CustomerForm: React.FC = () => {
                   Customer Type
                 </label>
                 <select
-                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white transition-colors"
+                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white "
                   {...register('customerType')}
                 >
                   <option value="Regular">Regular</option>
@@ -158,7 +158,7 @@ export const CustomerForm: React.FC = () => {
                   Special Notes
                 </label>
                 <textarea
-                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white transition-colors h-24 resize-none"
+                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white h-24 resize-none"
                   placeholder="Any special preferences or notes..."
                   {...register('specialNotes')}
                 />
@@ -169,7 +169,7 @@ export const CustomerForm: React.FC = () => {
                   Status
                 </label>
                 <select
-                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white transition-colors"
+                  className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white "
                   {...register('status')}
                 >
                   <option value="Active">Active</option>

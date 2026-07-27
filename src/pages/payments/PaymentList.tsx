@@ -66,7 +66,7 @@ export const PaymentList: React.FC = () => {
                 <tr><td colSpan={5} className="px-6 py-8 text-center text-gray-500">No payments found.</td></tr>
               ) : (
                 filteredPayments.map((payment) => (
-                  <tr key={payment.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <tr key={payment.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 ">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900 dark:text-white">
                         {dayjs(payment.paymentDate).format('DD MMM YYYY')}

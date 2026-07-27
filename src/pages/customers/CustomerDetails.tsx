@@ -43,7 +43,7 @@ export const CustomerDetails: React.FC = () => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/customers')}
-            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 transition-colors"
+            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 "
           >
             <ArrowLeft className="w-5 h-5" />
           </button>

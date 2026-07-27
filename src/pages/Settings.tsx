@@ -30,7 +30,7 @@ export const Settings: React.FC = () => {
           <div className="p-2 flex flex-col space-y-1">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'profile' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
@@ -38,7 +38,7 @@ export const Settings: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('company')}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'company' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
@@ -46,7 +46,7 @@ export const Settings: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('notifications')}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'notifications' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
@@ -54,7 +54,7 @@ export const Settings: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('security')}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'security' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
@@ -62,7 +62,7 @@ export const Settings: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('appearance')}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl ${
                 activeTab === 'appearance' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
@@ -119,7 +119,7 @@ export const Settings: React.FC = () => {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Invoice Footer Notes</label>
                     <textarea 
-                      className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white transition-colors h-24 resize-none"
+                      className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white h-24 resize-none"
                       defaultValue="Thank you for your business. Please make payments to Bank of Ceylon, A/C: 12345678."
                     />
                   </div>
@@ -150,7 +150,7 @@ export const Settings: React.FC = () => {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" className="sr-only peer" defaultChecked={idx < 3} />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:dark:border-gray-600 peer-checked:bg-primary"></div>
                     </label>
                   </div>
                 ))}

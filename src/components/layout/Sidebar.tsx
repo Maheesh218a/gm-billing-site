@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl lg:shadow-none flex flex-col transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl lg:shadow-none flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b border-gray-100 dark:border-gray-700">
         <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
               to={item.path}
               onClick={handleClose}
               className={({ isActive }) => `
-                flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group relative
+                flex items-center gap-3 px-3 py-2.5 rounded-xl group relative
                 ${isActive 
                   ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-blue-400 font-medium' 
                   : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white'
@@ -90,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
               {isActive && (
                 <div className="absolute left-0 w-1 h-6 bg-primary rounded-r-full" />
               )}
-              <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-primary dark:text-blue-400' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300'}`} />
+              <Icon className={`w-5 h-5 ${isActive ? 'text-primary dark:text-blue-400' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300'}`} />
               <span className="truncate">{item.name}</span>
             </NavLink>
           );
@@ -100,9 +100,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
       <div className="p-4 border-t border-gray-100 dark:border-gray-700">
         <button
           onClick={() => logout()}
-          className="flex items-center gap-3 px-3 py-2.5 w-full text-left rounded-xl text-danger hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors group"
+          className="flex items-center gap-3 px-3 py-2.5 w-full text-left rounded-xl text-danger hover:bg-red-50 dark:hover:bg-red-900/20 group"
         >
-          <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          <LogOut className="w-5 h-5 group-" />
           <span className="font-medium">Logout</span>
         </button>
       </div>

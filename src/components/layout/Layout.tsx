@@ -19,7 +19,7 @@ export const Layout: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300 flex">
+    <div className="min-h-screen bg-background dark:bg-gray-900 flex">
       {/* Mobile Sidebar Overlay */}
         {isMobile && sidebarOpen && (
           <div
@@ -30,7 +30,7 @@ export const Layout: React.FC = () => {
 
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} isMobile={isMobile} />
 
-      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${sidebarOpen && !isMobile ? 'lg:ml-64' : 'ml-0'}`}>
+      <div className={`flex-1 flex flex-col min-w-0 ${sidebarOpen && !isMobile ? 'lg:ml-64' : 'ml-0'}`}>
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
           <div

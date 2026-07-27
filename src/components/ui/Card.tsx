@@ -11,7 +11,7 @@ export const Card: React.FC<CardProps> = ({ children, className = '', premium = 
     <div
       className={`
         bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700
-        ${premium ? 'shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300' : 'shadow-sm'}
+        ${premium ? 'shadow-lg hover:shadow-xl ' : 'shadow-sm'}
         ${className}
       `}
       {...props}

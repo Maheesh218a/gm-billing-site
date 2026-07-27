@@ -37,12 +37,12 @@ export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, title, children
         <>
           <div
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 "
           />
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
               <div
-                className={`relative transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 text-left shadow-2xl transition-all sm:my-8 w-full ${maxWidthClasses[maxWidth]}`}
+                className={`relative transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 text-left shadow-2xl sm:my-8 w-full ${maxWidthClasses[maxWidth]}`}
               >
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -50,7 +50,7 @@ export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, title, children
                   </h3>
                   <button
                     onClick={onClose}
-                    className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-gray-700 transition-colors"
+                    className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-gray-700 "
                   >
                     <X className="w-5 h-5" />
                   </button>

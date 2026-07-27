@@ -136,7 +136,7 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card premium className="bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800 border-blue-100 dark:border-gray-700 hover:-translate-y-1 transition-transform">
+        <Card premium className="bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800 border-blue-100 dark:border-gray-700 ">
           <CardBody className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -155,7 +155,7 @@ export const Dashboard: React.FC = () => {
           </CardBody>
         </Card>
 
-        <Card premium className="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-800 border-red-100 dark:border-gray-700 hover:-translate-y-1 transition-transform">
+        <Card premium className="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-800 border-red-100 dark:border-gray-700 ">
           <CardBody className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -172,7 +172,7 @@ export const Dashboard: React.FC = () => {
           </CardBody>
         </Card>
 
-        <Card premium className="hover:-translate-y-1 transition-transform">
+        <Card premium className="">
           <CardBody className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -186,7 +186,7 @@ export const Dashboard: React.FC = () => {
           </CardBody>
         </Card>
         
-        <Card premium className="hover:-translate-y-1 transition-transform">
+        <Card premium className="">
           <CardBody className="p-6">
             <div className="flex justify-between items-start">
               <div>

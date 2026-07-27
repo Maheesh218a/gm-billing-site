@@ -68,7 +68,7 @@ export const InvoiceList: React.FC = () => {
                 <tr><td colSpan={5} className="px-6 py-8 text-center text-gray-500">No invoices found.</td></tr>
               ) : (
                 filteredInvoices.map((invoice) => (
-                  <tr key={invoice.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                  <tr key={invoice.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 ">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-bold text-gray-900 dark:text-white">{invoice.invoiceNumber}</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
