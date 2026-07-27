@@ -175,8 +175,11 @@ export const InvoiceForm: React.FC = () => {
                     <div className="w-full md:w-48">
                       <Input type="number" placeholder="Amount (LKR)" {...register(`items.${index}.amount` as const, { valueAsNumber: true })} />
                     </div>
+                    <div className="w-full md:w-32 pt-2 md:pt-0 font-bold text-right text-gray-900 dark:text-white flex items-center justify-end">
+                      LKR {(watchItems[index]?.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
                     {fields.length > 1 && (
-                      <button type="button" onClick={() => remove(index)} className="text-danger hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors">
+                      <button type="button" onClick={() => remove(index)} className="text-danger hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors ml-2">
                         <Trash2 className="w-5 h-5" />
                       </button>
                     )}
