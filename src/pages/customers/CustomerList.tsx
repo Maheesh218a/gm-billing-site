@@ -12,6 +12,8 @@ export const CustomerList: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [customerToDelete, setCustomerToDelete] = useState<{id: string, name: string} | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,14 +30,21 @@ export const CustomerList: React.FC = () => {
     (c.email && c.email.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const handleDelete = async (id: string, name: string) => {
-    if (window.confirm(`Are you sure you want to deactivate ${name}?`)) {
+  const handleDeleteClick = (id: string, name: string) => {
+    setCustomerToDelete({id, name});
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (customerToDelete) {
       try {
-        await customerService.deleteCustomer(id);
-        toast.success(`${name} has been deactivated.`);
+        await customerService.deleteCustomer(customerToDelete.id);
+        toast.success(`${customerToDelete.name} has been deactivated.`);
       } catch (error) {
         toast.error('Failed to deactivate customer.');
       }
+      setDeleteModalOpen(false);
+      setCustomerToDelete(null);
     }
   };
 
@@ -138,7 +147,7 @@ export const CustomerList: React.FC = () => {
                         <button onClick={() => navigate(`/customers/${customer.id}/edit`)} className="text-gray-400 hover:text-blue-500 p-1" title="Edit">
                           <Edit className="w-5 h-5" />
                         </button>
-                        <button onClick={() => handleDelete(customer.id!, customer.fullName)} className="text-gray-400 hover:text-danger p-1" title="Deactivate">
+                        <button onClick={() => handleDeleteClick(customer.id!, customer.fullName)} className="text-gray-400 hover:text-danger p-1" title="Deactivate">
                           <Trash className="w-5 h-5" />
                         </button>
                       </div>
@@ -150,6 +159,30 @@ export const CustomerList: React.FC = () => {
           </table>
         </div>
       </Card>
+
+      {/* Custom Delete Confirmation Modal */}
+      {deleteModalOpen && customerToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-all animate-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <div className="flex items-center justify-center w-16 h-16 mx-auto bg-red-100 rounded-full dark:bg-red-900/30">
+                <Trash className="w-8 h-8 text-danger" />
+              </div>
+              <div className="mt-5 text-center">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Deactivate Customer</h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Are you sure you want to deactivate <span className="font-semibold text-gray-700 dark:text-gray-300">{customerToDelete.name}</span>? 
+                  This action can be reversed later, but they will be hidden from active lists.
+                </p>
+              </div>
+            </div>
+            <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 flex gap-3 justify-end border-t border-gray-100 dark:border-gray-700">
+              <Button variant="outline" onClick={() => setDeleteModalOpen(false)}>Cancel</Button>
+              <Button className="bg-danger hover:bg-red-700 text-white border-transparent" onClick={confirmDelete}>Yes, Deactivate</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
