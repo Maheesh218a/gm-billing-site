@@ -38,7 +38,7 @@ const navItems = [
   { name: 'Backup', path: '/backup', icon: DatabaseBackup },
   { name: 'Settings', path: '/settings', icon: Settings },
   { name: 'Logs', path: '/logs', icon: ScrollText },
-  { name: 'Profile', path: '/profile', icon: UserCircle },
+
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile }) => {
