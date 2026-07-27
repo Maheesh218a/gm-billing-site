@@ -103,7 +103,7 @@ export const Templates = () => {
               {invoice.items.map((item, index) => (
                 <tr key={index} className="border-b border-gray-100">
                   <td className="py-4 text-sm text-gray-700">{item.description}</td>
-                  <td className="py-4 text-sm text-gray-900 font-medium text-right">{formatCurrency(item.amount)}</td>
+                  <td className="py-4 text-sm text-gray-900 font-medium text-right">XXX.XX</td>
                 </tr>
               ))}
             </tbody>
@@ -129,20 +129,20 @@ export const Templates = () => {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-gray-600">
                 <span>Subtotal</span>
-                <span>LKR {formatCurrency(invoice.subtotal)}</span>
+                <span>LKR XXX.XX</span>
               </div>
               <div className="flex justify-between text-lg font-bold text-gray-900 pt-3 border-t border-gray-200">
                 <span>Grand Total</span>
-                <span>LKR {formatCurrency(invoice.grandTotal)}</span>
+                <span>LKR XXX.XX</span>
               </div>
               
               <div className="flex justify-between text-gray-600 pt-3">
                 <span>Amount Paid</span>
-                <span>LKR {formatCurrency(invoice.paidAmount)}</span>
+                <span>LKR XXX.XX</span>
               </div>
               <div className="flex justify-between font-bold text-danger">
                 <span>Balance Due</span>
-                <span>LKR {formatCurrency(invoice.balance)}</span>
+                <span>LKR XXX.XX</span>
               </div>
             </div>
           </div>
