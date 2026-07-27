@@ -10,6 +10,8 @@ import CustomerForm from './pages/customers/CustomerForm';
 import CustomerDetails from './pages/customers/CustomerDetails';
 import VehicleList from './pages/vehicles/VehicleList';
 import DriverList from './pages/drivers/DriverList';
+import InvoiceList from './pages/invoices/InvoiceList';
+import InvoiceForm from './pages/invoices/InvoiceForm';
 
 import Layout from './components/layout/Layout';
 
@@ -37,6 +39,11 @@ function App() {
               <Route path="/drivers/create" element={<div className="p-8">Driver Form Placeholder</div>} />
               <Route path="/drivers/:id/edit" element={<div className="p-8">Driver Form Placeholder</div>} />
               <Route path="/drivers/:id" element={<div className="p-8">Driver Details Placeholder</div>} />
+
+              <Route path="/invoices" element={<Navigate to="/invoices/history" replace />} />
+              <Route path="/invoices/history" element={<InvoiceList />} />
+              <Route path="/invoices/create" element={<InvoiceForm />} />
+              <Route path="/invoices/:id" element={<div className="p-8">Invoice View Placeholder</div>} />
               {/* Add more protected routes here */}
             </Route>
           </Route>
