@@ -12,23 +12,23 @@ export const Templates = () => {
 
   // Dummy data for template preview
   const invoice = {
-    invoiceNumber: 'GM-20260727-0101-ABCD',
+    invoiceNumber: 'GM-XXXX-XXXX',
     createdAt: { toDate: () => new Date() },
     status: 'Pending',
-    customerName: 'Piumi Nandisena',
+    customerName: '[Customer Name]',
     pickupDate: new Date(),
-    pickupLocation: 'Matale',
-    dropLocation: 'Matale',
+    pickupLocation: '[Pickup Location]',
+    dropLocation: '[Drop Location]',
     items: [
-      { description: 'Wedding Package With Red Decoration', amount: 8000 },
-      { description: 'Extra Mileage (10km)', amount: 1500 }
+      { description: '[Item Description 1]', amount: 5000 },
+      { description: '[Item Description 2]', amount: 2000 }
     ],
-    subtotal: 9500,
+    subtotal: 7000,
     discount: 0,
     tax: 0,
-    grandTotal: 9500,
-    paidAmount: 1500,
-    balance: 8000,
+    grandTotal: 7000,
+    paidAmount: 1000,
+    balance: 6000,
   };
 
   const settings = {
@@ -42,7 +42,7 @@ export const Templates = () => {
   };
 
   const customer = {
-    mobileNumber: '076 578 4219'
+    mobileNumber: '[Customer Mobile]'
   };
 
   return (
