@@ -54,11 +54,7 @@ body {
 
 /* Base custom classes for Premium look */
 .card-premium {
-  @apply bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 transition-all duration-300;
-}
-
-.card-premium:hover {
-  @apply shadow-xl transform -translate-y-1;
+  @apply bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700;
 }
 
 /* Hide number input spin buttons */
