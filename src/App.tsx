@@ -11,6 +11,7 @@ import CustomerDetails from './pages/customers/CustomerDetails';
 import VehicleList from './pages/vehicles/VehicleList';
 import VehicleForm from './pages/vehicles/VehicleForm';
 import { VehicleDetails } from './pages/vehicles/VehicleDetails';
+import Calendar from './pages/Calendar';
 import DriverList from './pages/drivers/DriverList';
 import DriverForm from './pages/drivers/DriverForm';
 import { DriverDetails } from './pages/drivers/DriverDetails';
@@ -48,6 +49,8 @@ function App() {
               <Route path="/vehicles/create" element={<VehicleForm />} />
               <Route path="/vehicles/:id/edit" element={<VehicleForm />} />
               <Route path="/vehicles/:id" element={<VehicleDetails />} />
+              
+              <Route path="/calendar" element={<Calendar />} />
               
               <Route path="/drivers" element={<DriverList />} />
               <Route path="/drivers/create" element={<DriverForm />} />
