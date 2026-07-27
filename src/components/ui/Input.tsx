@@ -36,6 +36,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ${className}
             `}
             {...props}
+            onKeyDown={(e) => {
+              if (props.type === 'number') {
+                if (e.key === '-' || e.key === 'e' || e.key === 'E') {
+                  e.preventDefault();
+                }
+              }
+              if (props.onKeyDown) {
+                props.onKeyDown(e);
+              }
+            }}
+            min={props.type === 'number' ? (props.min !== undefined ? props.min : 0) : props.min}
           />
           {rightIcon && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
