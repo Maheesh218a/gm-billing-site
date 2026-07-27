@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { settingsService, AppSettings } from '../services/settings.service';
+import { settingsService } from '../services/settings.service';
+import type { AppSettings } from '../services/settings.service';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
