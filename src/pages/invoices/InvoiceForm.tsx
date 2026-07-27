@@ -181,32 +181,32 @@ export const InvoiceForm: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Customer *</label>
-                  <select className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white" {...register('customerId', { required: true })}>
+                  <select disabled={!!id} className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white disabled:opacity-50 disabled:cursor-not-allowed" {...register('customerId', { required: true })}>
                     <option value="">Select a customer...</option>
                     {customers.map(c => <option key={c.id} value={c.id}>{c.fullName} - {c.mobileNumber}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Vehicle</label>
-                  <select className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white" {...register('vehicleId')}>
+                  <select disabled={!!id} className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white disabled:opacity-50 disabled:cursor-not-allowed" {...register('vehicleId')}>
                     <option value="">Select a vehicle...</option>
                     {vehicles.map(v => <option key={v.id} value={v.id}>{v.vehicleNumber} ({v.brand})</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Driver</label>
-                  <select className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white" {...register('driverId')}>
+                  <select disabled={!!id} className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white disabled:opacity-50 disabled:cursor-not-allowed" {...register('driverId')}>
                     <option value="">Select a driver...</option>
                     {drivers.map(d => <option key={d.id} value={d.id}>{d.fullName}</option>)}
                   </select>
                 </div>
-                <Input label="Journey Type" placeholder="e.g. Airport Drop, Wedding Hire" {...register('journeyType')} />
+                <Input disabled={!!id} label="Journey Type" placeholder="e.g. Airport Drop, Wedding Hire" {...register('journeyType')} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <Input type="date" label="Pickup Date" {...register('pickupDate')} />
-                <Input type="time" label="Pickup Time" {...register('pickupTime')} />
-                <Input label="Pickup Location" {...register('pickupLocation')} />
-                <Input label="Drop Location" {...register('dropLocation')} />
+                <Input disabled={!!id} type="date" label="Pickup Date" {...register('pickupDate')} />
+                <Input disabled={!!id} type="time" label="Pickup Time" {...register('pickupTime')} />
+                <Input disabled={!!id} label="Pickup Location" {...register('pickupLocation')} />
+                <Input disabled={!!id} label="Drop Location" {...register('dropLocation')} />
               </div>
             </CardBody>
           </Card>
