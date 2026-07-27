@@ -22,7 +22,9 @@ interface BookingEvent {
 }
 
 export const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(dayjs());
+  const [currentMonthStr, setCurrentMonthStr] = useState(dayjs().format('YYYY-MM-01'));
+  const currentDate = dayjs(currentMonthStr);
+  
   const [events, setEvents] = useState<BookingEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -160,9 +162,9 @@ export const Calendar = () => {
     days = [];
   }
 
-  const nextMonth = () => setCurrentDate(currentDate.add(1, 'month'));
-  const prevMonth = () => setCurrentDate(currentDate.subtract(1, 'month'));
-  const today = () => setCurrentDate(dayjs());
+  const nextMonth = () => setCurrentMonthStr(currentDate.add(1, 'month').format('YYYY-MM-01'));
+  const prevMonth = () => setCurrentMonthStr(currentDate.subtract(1, 'month').format('YYYY-MM-01'));
+  const today = () => setCurrentMonthStr(dayjs().format('YYYY-MM-01'));
 
   return (
     <div className="space-y-6">
