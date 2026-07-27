@@ -168,7 +168,7 @@ export const Reports = () => {
       const customer = customers.find(c => c.id === customerId);
       return {
         id: customerId,
-        name: customer ? customer.name : 'Unknown Customer',
+        name: customer ? customer.fullName : 'Unknown Customer',
         count
       };
     })
