@@ -106,7 +106,13 @@ export const invoiceService = {
         transaction.update(counterRef, { sequence: nextSequence });
       }
       
-      generatedInvoiceNumber = `GM-${today}-${nextSequence.toString().padStart(5, '0')}`;
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let randomSuffix = '';
+      for (let i = 0; i < 4; i++) {
+        randomSuffix += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      
+      generatedInvoiceNumber = `GM-${today}-${nextSequence.toString().padStart(4, '0')}-${randomSuffix}`;
       
       // 3. Create invoice document
       const newInvoiceRef = doc(collection(db, COLLECTION_NAME));
