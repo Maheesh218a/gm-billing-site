@@ -3,7 +3,8 @@ import { Search, Plus, CreditCard, DollarSign } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { paymentService, Payment } from '../../services/payment.service';
+import { paymentService } from '../../services/payment.service';
+import type { Payment } from '../../services/payment.service';
 import dayjs from 'dayjs';
 
 export const PaymentList: React.FC = () => {

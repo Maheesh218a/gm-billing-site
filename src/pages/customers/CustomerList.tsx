@@ -4,7 +4,8 @@ import { Plus, Search, MoreVertical, Edit, Trash, FileText, Phone } from 'lucide
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { customerService, Customer } from '../../services/customer.service';
+import { customerService } from '../../services/customer.service';
+import type { Customer } from '../../services/customer.service';
 import toast from 'react-hot-toast';
 
 export const CustomerList: React.FC = () => {

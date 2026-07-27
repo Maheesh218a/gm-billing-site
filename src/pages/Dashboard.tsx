@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody } from '../components/ui/Card';
 import { Users, FileText, CreditCard, DollarSign, TrendingUp, TrendingDown, Car } from 'lucide-react';
-import { invoiceService, Invoice } from '../services/invoice.service';
-import { customerService, Customer } from '../services/customer.service';
-import { vehicleService, Vehicle } from '../services/vehicle.service';
-import { paymentService, Payment } from '../services/payment.service';
+import { invoiceService } from '../services/invoice.service';
+import type { Invoice } from '../services/invoice.service';
+import { customerService } from '../services/customer.service';
+import type { Customer } from '../services/customer.service';
+import { vehicleService } from '../services/vehicle.service';
+import type { Vehicle } from '../services/vehicle.service';
+import { paymentService } from '../services/payment.service';
+import type { Payment } from '../services/payment.service';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -110,7 +114,7 @@ export const Dashboard: React.FC = () => {
     ]
   };
   
-  const chartOptions = {
+  const chartOptions: any = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {

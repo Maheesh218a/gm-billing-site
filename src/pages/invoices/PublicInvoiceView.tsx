@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { invoiceService, Invoice } from '../../services/invoice.service';
+import { invoiceService } from '../../services/invoice.service';
+import type { Invoice } from '../../services/invoice.service';
 import { CheckCircle } from 'lucide-react';
 import dayjs from 'dayjs';
 

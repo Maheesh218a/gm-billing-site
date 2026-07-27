@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Edit, Phone, Mail, MapPin, Upload, FileText, Calendar, DollarSign, Activity } from 'lucide-react';
-import { customerService, Customer } from '../../services/customer.service';
+import { customerService } from '../../services/customer.service';
+import type { Customer } from '../../services/customer.service';
 import { Card, CardBody } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import toast from 'react-hot-toast';

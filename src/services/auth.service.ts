@@ -4,9 +4,9 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
-  onAuthStateChanged,
-  User
+  onAuthStateChanged
 } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import { auth, db } from '../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
 

@@ -5,7 +5,8 @@ import { ArrowLeft, Save } from 'lucide-react';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { customerService, Customer } from '../../services/customer.service';
+import { customerService } from '../../services/customer.service';
+import type { Customer } from '../../services/customer.service';
 import toast from 'react-hot-toast';
 
 export const CustomerForm: React.FC = () => {

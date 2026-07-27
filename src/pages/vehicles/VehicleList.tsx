@@ -4,7 +4,8 @@ import { Plus, Search, Edit, Trash, FileText, Car } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { vehicleService, Vehicle } from '../../services/vehicle.service';
+import { vehicleService } from '../../services/vehicle.service';
+import type { Vehicle } from '../../services/vehicle.service';
 import toast from 'react-hot-toast';
 
 export const VehicleList: React.FC = () => {

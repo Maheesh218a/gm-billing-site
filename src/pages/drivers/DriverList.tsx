@@ -4,7 +4,8 @@ import { Plus, Search, Edit, Trash, FileText, Contact } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { driverService, Driver } from '../../services/driver.service';
+import { driverService } from '../../services/driver.service';
+import type { Driver } from '../../services/driver.service';
 import toast from 'react-hot-toast';
 
 export const DriverList: React.FC = () => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { invoiceService, Invoice } from '../../services/invoice.service';
+import { invoiceService } from '../../services/invoice.service';
+import type { Invoice } from '../../services/invoice.service';
 import { ArrowLeft, Download, Printer, Share2 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import QRCode from 'react-qr-code';

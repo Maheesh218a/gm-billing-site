@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { invoiceService, Invoice } from '../../services/invoice.service';
+import { invoiceService } from '../../services/invoice.service';
+import type { Invoice } from '../../services/invoice.service';
 import { Card } from '../../components/ui/Card';
 import { Calendar as CalendarIcon, Clock, MapPin } from 'lucide-react';
 import dayjs from 'dayjs';

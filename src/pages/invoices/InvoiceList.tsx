@@ -4,7 +4,8 @@ import { Plus, Search, Edit, Trash, FileText, Download, Printer } from 'lucide-r
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { invoiceService, Invoice } from '../../services/invoice.service';
+import { invoiceService } from '../../services/invoice.service';
+import type { Invoice } from '../../services/invoice.service';
 import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 
