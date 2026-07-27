@@ -16,6 +16,7 @@ import InvoiceView from './pages/invoices/InvoiceView';
 import PublicInvoiceView from './pages/invoices/PublicInvoiceView';
 import PaymentList from './pages/payments/PaymentList';
 import BookingCalendar from './pages/bookings/BookingCalendar';
+import Settings from './pages/Settings';
 
 import Layout from './components/layout/Layout';
 
@@ -53,6 +54,8 @@ function App() {
               <Route path="/payments" element={<PaymentList />} />
 
               <Route path="/bookings" element={<BookingCalendar />} />
+              
+              <Route path="/settings" element={<Settings />} />
               {/* Add more protected routes here */}
             </Route>
           </Route>
