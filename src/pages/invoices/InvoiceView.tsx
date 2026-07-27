@@ -94,6 +94,30 @@ export const InvoiceView: React.FC = () => {
     window.print();
   };
 
+  const handleShare = async () => {
+    if (!invoice) return;
+    const verificationUrl = `${window.location.origin}/verify/${invoice.id}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Invoice #${invoice.invoiceNumber}`,
+          text: `Here is your invoice #${invoice.invoiceNumber}`,
+          url: verificationUrl,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(verificationUrl);
+        toast.success('Link copied to clipboard!');
+      } catch (err) {
+        toast.error('Failed to copy link');
+      }
+    }
+  };
+
   if (loading) return <div className="p-8 text-center text-gray-500">Loading invoice...</div>;
   if (!invoice) return <div className="p-8 text-center text-gray-500">Invoice not found.</div>;
 
@@ -118,7 +142,7 @@ export const InvoiceView: React.FC = () => {
           {invoice.status !== 'Paid' && (
             <Button variant="outline" leftIcon={<Edit className="w-4 h-4" />} onClick={() => navigate(`/invoices/${invoice.id}/edit`)}>Edit</Button>
           )}
-          <Button variant="outline" leftIcon={<Share2 className="w-4 h-4" />}>Share</Button>
+          <Button variant="outline" leftIcon={<Share2 className="w-4 h-4" />} onClick={handleShare}>Share</Button>
           <Button variant="outline" leftIcon={<Printer className="w-4 h-4" />} onClick={handlePrint}>Print</Button>
           <Button leftIcon={<Download className="w-4 h-4" />} onClick={handleDownloadPDF}>Download PDF</Button>
         </div>
