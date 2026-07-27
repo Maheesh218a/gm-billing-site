@@ -77,7 +77,9 @@ export const InvoiceView: React.FC = () => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Invoice Details</h1>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" leftIcon={<Edit className="w-4 h-4" />} onClick={() => navigate(`/invoices/${invoice.id}/edit`)}>Edit</Button>
+          {invoice.status !== 'Paid' && (
+            <Button variant="outline" leftIcon={<Edit className="w-4 h-4" />} onClick={() => navigate(`/invoices/${invoice.id}/edit`)}>Edit</Button>
+          )}
           <Button variant="outline" leftIcon={<Share2 className="w-4 h-4" />}>Share</Button>
           <Button variant="outline" leftIcon={<Printer className="w-4 h-4" />} onClick={handlePrint}>Print</Button>
           <Button leftIcon={<Download className="w-4 h-4" />} onClick={handleDownloadPDF}>Download PDF</Button>

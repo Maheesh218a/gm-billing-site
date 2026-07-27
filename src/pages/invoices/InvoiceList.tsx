@@ -99,9 +99,11 @@ export const InvoiceList: React.FC = () => {
                         <button onClick={() => navigate(`/invoices/${invoice.id}`)} className="text-gray-400 hover:text-primary p-1" title="View">
                           <FileText className="w-5 h-5" />
                         </button>
-                        <button onClick={() => navigate(`/invoices/${invoice.id}/edit`)} className="text-gray-400 hover:text-primary p-1" title="Edit">
-                          <Edit className="w-5 h-5" />
-                        </button>
+                        {invoice.status !== 'Paid' && (
+                          <button onClick={() => navigate(`/invoices/${invoice.id}/edit`)} className="text-gray-400 hover:text-primary p-1" title="Edit">
+                            <Edit className="w-5 h-5" />
+                          </button>
+                        )}
                         <button className="text-gray-400 hover:text-blue-500 p-1" title="Download PDF">
                           <Download className="w-5 h-5" />
                         </button>

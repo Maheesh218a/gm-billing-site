@@ -65,6 +65,11 @@ export const InvoiceForm: React.FC = () => {
         try {
           const invoice = await invoiceService.getInvoiceById(id);
           if (invoice) {
+            if (invoice.status === 'Paid') {
+              toast.error("Cannot edit a paid invoice");
+              navigate(`/invoices/${id}`);
+              return;
+            }
             reset(invoice);
           } else {
             toast.error("Invoice not found");
