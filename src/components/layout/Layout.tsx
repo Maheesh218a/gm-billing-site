@@ -28,13 +28,17 @@ export const Layout: React.FC = () => {
           />
         )}
 
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} isMobile={isMobile} />
+      <div className="print:hidden">
+        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} isMobile={isMobile} />
+      </div>
 
-      <div className={`flex-1 flex flex-col min-w-0 ${sidebarOpen && !isMobile ? 'lg:ml-64' : 'ml-0'}`}>
-        <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
+      <div className={`flex-1 flex flex-col min-w-0 ${sidebarOpen && !isMobile ? 'lg:ml-64 print:ml-0' : 'ml-0'}`}>
+        <div className="print:hidden">
+          <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        </div>
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 print:p-0 overflow-x-hidden print:overflow-visible print:bg-white">
           <div
-            className="max-w-7xl mx-auto h-full"
+            className="max-w-7xl mx-auto h-full print:max-w-none print:w-full print:m-0"
           >
             <Outlet />
           </div>

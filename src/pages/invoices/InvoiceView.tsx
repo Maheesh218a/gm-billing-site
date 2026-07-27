@@ -100,7 +100,13 @@ export const InvoiceView: React.FC = () => {
   const verificationUrl = `${window.location.origin}/verify/${invoice.id}`;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-20">
+    <div className="max-w-4xl mx-auto space-y-6 pb-20 print:pb-0 print:space-y-0 print:m-0 print:w-full">
+      <style type="text/css" media="print">
+        {`
+          @page { size: portrait; margin: 10mm; }
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: white !important; }
+        `}
+      </style>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 print:hidden">
         <div className="flex items-center gap-4">
           <button onClick={() => navigate('/invoices')} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 ">
