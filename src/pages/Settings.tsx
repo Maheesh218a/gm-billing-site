@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { settingsService, AppSettings } from '../services/settings.service';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -8,17 +10,45 @@ import toast from 'react-hot-toast';
 export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isSaving, setIsSaving] = useState(false);
+  
+  const { register, handleSubmit, reset } = useForm<AppSettings>({
+    defaultValues: {
+      profile: { firstName: 'Admin', lastName: 'User', email: 'admin@gmbilling.com', phone: '+94 77 123 4567' },
+      company: { 
+        companyName: 'GM Transportation', 
+        registrationNumber: 'PV 123456', 
+        address: 'No. 123, Luxury Road, Colombo 03', 
+        contactEmail: 'info@gmbilling.com', 
+        contactPhone: '+94 11 234 5678',
+        invoiceFooterNotes: 'Thank you for your business. Please make payments to Bank of Ceylon, A/C: 12345678.'
+      }
+    }
+  });
 
-  const handleSave = () => {
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const data = await settingsService.getSettings();
+      if (data) {
+        reset(data);
+      }
+    };
+    fetchSettings();
+  }, [reset]);
+
+  const onSubmit = async (data: AppSettings) => {
     setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
+    try {
+      await settingsService.updateSettings(data);
       toast.success('Settings saved successfully!');
-    }, 1000);
+    } catch (error) {
+      toast.error('Failed to save settings.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-10">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-5xl mx-auto pb-10">
       <div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account and company preferences.</p>
@@ -90,13 +120,13 @@ export const Settings: React.FC = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Input label="First Name" defaultValue="Admin" />
-                  <Input label="Last Name" defaultValue="User" />
-                  <Input label="Email Address" type="email" defaultValue="admin@gmbilling.com" />
-                  <Input label="Phone Number" defaultValue="+94 77 123 4567" />
+                  <Input label="First Name" {...register('profile.firstName')} />
+                  <Input label="Last Name" {...register('profile.lastName')} />
+                  <Input label="Email Address" type="email" {...register('profile.email')} />
+                  <Input label="Phone Number" {...register('profile.phone')} />
                 </div>
                 <div className="flex justify-end pt-4">
-                  <Button onClick={handleSave} isLoading={isSaving} leftIcon={<Save className="w-4 h-4" />}>Save Changes</Button>
+                  <Button type="submit" isLoading={isSaving} leftIcon={<Save className="w-4 h-4" />}>Save Changes</Button>
                 </div>
               </CardBody>
             </Card>
@@ -109,23 +139,23 @@ export const Settings: React.FC = () => {
               </CardHeader>
               <CardBody className="space-y-6">
                 <div className="grid grid-cols-1 gap-6">
-                  <Input label="Company Name" defaultValue="GM Transportation" />
-                  <Input label="Registration Number" defaultValue="PV 123456" />
-                  <Input label="Address" defaultValue="No. 123, Luxury Road, Colombo 03" />
+                  <Input label="Company Name" {...register('company.companyName')} />
+                  <Input label="Registration Number" {...register('company.registrationNumber')} />
+                  <Input label="Address" {...register('company.address')} />
                   <div className="grid grid-cols-2 gap-6">
-                    <Input label="Contact Email" defaultValue="info@gmbilling.com" />
-                    <Input label="Contact Phone" defaultValue="+94 11 234 5678" />
+                    <Input label="Contact Email" {...register('company.contactEmail')} />
+                    <Input label="Contact Phone" {...register('company.contactPhone')} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Invoice Footer Notes</label>
                     <textarea 
                       className="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 px-4 focus:ring-primary focus:border-primary text-sm dark:text-white h-24 resize-none"
-                      defaultValue="Thank you for your business. Please make payments to Bank of Ceylon, A/C: 12345678."
+                      {...register('company.invoiceFooterNotes')}
                     />
                   </div>
                 </div>
                 <div className="flex justify-end pt-4">
-                  <Button onClick={handleSave} isLoading={isSaving} leftIcon={<Save className="w-4 h-4" />}>Save Company Profile</Button>
+                  <Button type="submit" isLoading={isSaving} leftIcon={<Save className="w-4 h-4" />}>Save Company Profile</Button>
                 </div>
               </CardBody>
             </Card>
@@ -155,7 +185,7 @@ export const Settings: React.FC = () => {
                   </div>
                 ))}
                 <div className="flex justify-end pt-4">
-                  <Button onClick={handleSave} isLoading={isSaving}>Save Preferences</Button>
+                  <Button type="button" isLoading={isSaving}>Save Preferences</Button>
                 </div>
               </CardBody>
             </Card>
@@ -172,7 +202,7 @@ export const Settings: React.FC = () => {
 
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

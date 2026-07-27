@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { invoiceService } from '../../services/invoice.service';
 import type { Invoice } from '../../services/invoice.service';
+import { settingsService, AppSettings } from '../../services/settings.service';
 import { ArrowLeft, Download, Printer, Share2, Edit } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import QRCode from 'react-qr-code';
@@ -14,6 +15,7 @@ export const InvoiceView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [invoice, setInvoice] = useState<Invoice | null>(null);
+  const [settings, setSettings] = useState<AppSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const invoiceRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +30,11 @@ export const InvoiceView: React.FC = () => {
             });
           });
           const found = invoices.find(i => i.id === id);
-          if (found) setInvoice(found);
+          if (found) {
+            setInvoice(found);
+            const appSettings = await settingsService.getSettings();
+            setSettings(appSettings);
+          }
           else toast.error('Invoice not found');
         } catch (error) {
           toast.error('Failed to load invoice');
@@ -97,11 +103,13 @@ export const InvoiceView: React.FC = () => {
         <div className="flex justify-between items-start border-b border-gray-200 pb-8">
           <div>
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-              GM
+              {settings?.company?.companyName?.charAt(0) || 'G'}
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">GM Transportation</h2>
-            <p className="text-gray-500 text-sm mt-1">No. 123, Luxury Road, Colombo 03</p>
-            <p className="text-gray-500 text-sm">Tel: +94 77 123 4567 | info@gmbilling.com</p>
+            <h2 className="text-2xl font-bold text-gray-900">{settings?.company?.companyName || 'GM Transportation'}</h2>
+            <p className="text-gray-500 text-sm mt-1">{settings?.company?.address || 'No. 123, Luxury Road, Colombo 03'}</p>
+            <p className="text-gray-500 text-sm">
+              Tel: {settings?.company?.contactPhone || '+94 77 123 4567'} | {settings?.company?.contactEmail || 'info@gmbilling.com'}
+            </p>
           </div>
           <div className="text-right">
             <h1 className="text-4xl font-black text-gray-900 tracking-tight">INVOICE</h1>
@@ -198,8 +206,8 @@ export const InvoiceView: React.FC = () => {
             <p className="text-sm font-medium text-gray-900">{invoice.createdBy}</p>
             <p className="text-xs text-gray-500">Authorized Signature</p>
           </div>
-          <div className="text-right text-xs text-gray-400">
-            Thank you for your business!
+          <div className="text-right text-xs text-gray-400 max-w-sm whitespace-pre-line">
+            {settings?.company?.invoiceFooterNotes || 'Thank you for your business!'}
           </div>
         </div>
 
