@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { authService } from '../services/auth.service';
 import { settingsService } from '../services/settings.service';
 import type { AppSettings } from '../services/settings.service';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
@@ -12,6 +13,11 @@ export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
   
   const { register, handleSubmit, reset } = useForm<AppSettings>();
 
@@ -53,6 +59,30 @@ export const Settings: React.FC = () => {
       toast.error('Failed to save settings.');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      toast.error('Please fill in all password fields');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error('New passwords do not match');
+      return;
+    }
+    setIsChangingPassword(true);
+    try {
+      await authService.changePassword(currentPassword, newPassword);
+      toast.success('Password changed successfully');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error: any) {
+      toast.error('Failed to change password. Please check your current password.');
+      console.error(error);
+    } finally {
+      setIsChangingPassword(false);
     }
   };
 
@@ -209,8 +239,43 @@ export const Settings: React.FC = () => {
             </Card>
           </div>
 
-          {/* Other tabs can be similarly implemented */}
-          <div className={(activeTab === 'security' || activeTab === 'appearance') ? 'block' : 'hidden'}>
+          <div className={activeTab === 'security' ? 'block' : 'hidden'}>
+            <Card premium>
+              <CardHeader>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Change Password</h2>
+              </CardHeader>
+              <CardBody className="space-y-6">
+                <div className="space-y-4 max-w-md">
+                  <Input 
+                    label="Current Password" 
+                    type="password" 
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                  />
+                  <Input 
+                    label="New Password" 
+                    type="password" 
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <Input 
+                    label="Confirm New Password" 
+                    type="password" 
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+                <div className="pt-2">
+                  <Button type="button" onClick={handleChangePassword} isLoading={isChangingPassword} leftIcon={<Shield className="w-4 h-4" />}>
+                    Update Password
+                  </Button>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+
+          {/* Appearance Tab */}
+          <div className={activeTab === 'appearance' ? 'block' : 'hidden'}>
             <Card premium>
               <CardBody className="py-12 text-center text-gray-500">
                 This section is under construction.
