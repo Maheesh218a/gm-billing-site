@@ -92,6 +92,23 @@ export const InvoiceForm: React.FC = () => {
       return;
     }
     
+    // Sanitize undefined fields to 0 for Firestore
+    data.discount = Number(data.discount) || 0;
+    data.tax = Number(data.tax) || 0;
+    data.paidAmount = Number(data.paidAmount) || 0;
+    data.subtotal = Number(data.subtotal) || 0;
+    data.grandTotal = Number(data.grandTotal) || 0;
+    data.balance = Number(data.balance) || 0;
+
+    data.items = data.items.map(item => ({
+      ...item,
+      amount: Number(item.amount) || 0,
+      quantity: Number(item.quantity) || 1,
+      unitPrice: Number(item.unitPrice) || 0,
+      discount: Number(item.discount) || 0,
+      tax: Number(item.tax) || 0
+    }));
+
     setIsSaving(true);
     try {
       data.createdBy = userProfile?.name || 'Unknown User';
