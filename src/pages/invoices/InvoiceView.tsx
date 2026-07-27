@@ -68,7 +68,11 @@ export const InvoiceView: React.FC = () => {
     if (!invoiceRef.current || !invoice) return;
     const toastId = toast.loading('Generating PDF...');
     try {
-      const canvas = await html2canvas(invoiceRef.current, { scale: 2 });
+      const canvas = await html2canvas(invoiceRef.current, { 
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+      });
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -78,6 +82,7 @@ export const InvoiceView: React.FC = () => {
       pdf.save(`${invoice.invoiceNumber}.pdf`);
       toast.success('PDF downloaded!', { id: toastId });
     } catch (error) {
+      console.error('PDF Generation Error:', error);
       toast.error('Failed to generate PDF', { id: toastId });
     }
   };
