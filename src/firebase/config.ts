@@ -2,16 +2,18 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { getAnalytics } from 'firebase/analytics';
 
 // Your web app's Firebase configuration
 // IMPORTANT: Replace with your actual Firebase config object
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDummyKeyForNow",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "gm-billing-site.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "gm-billing-site",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "gm-billing-site.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1234567890",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1234567890:web:abcdef"
+  apiKey: "AIzaSyC-9jgoWl-nIfXku3hKNM0xR50eofHt-C8",
+  authDomain: "gm-billing-site.firebaseapp.com",
+  projectId: "gm-billing-site",
+  storageBucket: "gm-billing-site.firebasestorage.app",
+  messagingSenderId: "927888726673",
+  appId: "1:927888726673:web:a37749848aef7ec4bb7d30",
+  measurementId: "G-769JCPRGXD"
 };
 
 // Initialize Firebase
@@ -21,5 +23,6 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 
 export default app;
