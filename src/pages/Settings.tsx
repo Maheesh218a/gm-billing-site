@@ -104,7 +104,7 @@ export const Settings: React.FC = () => {
 
         {/* Tab Content */}
         <div className="flex-1 w-full">
-          {activeTab === 'profile' && (
+          <div className={activeTab === 'profile' ? 'block' : 'hidden'}>
             <Card premium>
               <CardHeader>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Profile Settings</h2>
@@ -131,9 +131,9 @@ export const Settings: React.FC = () => {
                 </div>
               </CardBody>
             </Card>
-          )}
+          </div>
 
-          {activeTab === 'company' && (
+          <div className={activeTab === 'company' ? 'block' : 'hidden'}>
             <Card premium>
               <CardHeader>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Company Profile</h2>
@@ -160,9 +160,9 @@ export const Settings: React.FC = () => {
                 </div>
               </CardBody>
             </Card>
-          )}
+          </div>
 
-          {activeTab === 'notifications' && (
+          <div className={activeTab === 'notifications' ? 'block' : 'hidden'}>
             <Card premium>
               <CardHeader>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Notification Preferences</h2>
@@ -190,16 +190,16 @@ export const Settings: React.FC = () => {
                 </div>
               </CardBody>
             </Card>
-          )}
+          </div>
 
           {/* Other tabs can be similarly implemented */}
-          {(activeTab === 'security' || activeTab === 'appearance') && (
+          <div className={(activeTab === 'security' || activeTab === 'appearance') ? 'block' : 'hidden'}>
             <Card premium>
               <CardBody className="py-12 text-center text-gray-500">
                 This section is under construction.
               </CardBody>
             </Card>
-          )}
+          </div>
 
         </div>
       </div>
