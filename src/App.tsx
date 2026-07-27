@@ -10,8 +10,10 @@ import CustomerForm from './pages/customers/CustomerForm';
 import CustomerDetails from './pages/customers/CustomerDetails';
 import VehicleList from './pages/vehicles/VehicleList';
 import VehicleForm from './pages/vehicles/VehicleForm';
+import VehicleDetails from './pages/vehicles/VehicleDetails';
 import DriverList from './pages/drivers/DriverList';
 import DriverForm from './pages/drivers/DriverForm';
+import DriverDetails from './pages/drivers/DriverDetails';
 import InvoiceList from './pages/invoices/InvoiceList';
 import InvoiceForm from './pages/invoices/InvoiceForm';
 import InvoiceView from './pages/invoices/InvoiceView';
@@ -45,12 +47,12 @@ function App() {
               <Route path="/vehicles" element={<VehicleList />} />
               <Route path="/vehicles/create" element={<VehicleForm />} />
               <Route path="/vehicles/:id/edit" element={<VehicleForm />} />
-              <Route path="/vehicles/:id" element={<div className="p-8">Vehicle Details Placeholder</div>} />
+              <Route path="/vehicles/:id" element={<VehicleDetails />} />
               
               <Route path="/drivers" element={<DriverList />} />
               <Route path="/drivers/create" element={<DriverForm />} />
               <Route path="/drivers/:id/edit" element={<DriverForm />} />
-              <Route path="/drivers/:id" element={<div className="p-8">Driver Details Placeholder</div>} />
+              <Route path="/drivers/:id" element={<DriverDetails />} />
 
               <Route path="/invoices" element={<Navigate to="/invoices/history" replace />} />
               <Route path="/invoices/history" element={<InvoiceList />} />
