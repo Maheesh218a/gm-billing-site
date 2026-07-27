@@ -12,6 +12,8 @@ import VehicleList from './pages/vehicles/VehicleList';
 import DriverList from './pages/drivers/DriverList';
 import InvoiceList from './pages/invoices/InvoiceList';
 import InvoiceForm from './pages/invoices/InvoiceForm';
+import InvoiceView from './pages/invoices/InvoiceView';
+import PublicInvoiceView from './pages/invoices/PublicInvoiceView';
 import PaymentList from './pages/payments/PaymentList';
 import BookingCalendar from './pages/bookings/BookingCalendar';
 
@@ -23,6 +25,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/verify/:id" element={<PublicInvoiceView />} />
           
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
@@ -45,7 +48,7 @@ function App() {
               <Route path="/invoices" element={<Navigate to="/invoices/history" replace />} />
               <Route path="/invoices/history" element={<InvoiceList />} />
               <Route path="/invoices/create" element={<InvoiceForm />} />
-              <Route path="/invoices/:id" element={<div className="p-8">Invoice View Placeholder</div>} />
+              <Route path="/invoices/:id" element={<InvoiceView />} />
 
               <Route path="/payments" element={<PaymentList />} />
 
