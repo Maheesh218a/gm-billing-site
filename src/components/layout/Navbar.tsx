@@ -23,6 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
   });
   const [currentTime, setCurrentTime] = useState(dayjs());
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   // Search State
   const [searchQuery, setSearchQuery] = useState('');
@@ -54,6 +55,11 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
   };
 
   const hasResults = searchResults.invoices.length > 0 || searchResults.customers.length > 0 || searchResults.vehicles.length > 0;
+
+  // Notifications Logic
+  const pendingInvoices = allData.invoices.filter(i => i.status === 'Pending' || (i.outstandingBalance && i.outstandingBalance > 0));
+  const displayNotifications = pendingInvoices.slice(0, 5);
+  const unreadCount = pendingInvoices.length;
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(dayjs()), 1000);
@@ -172,10 +178,61 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
 
         {/* Right Side */}
         <div className="flex items-center gap-3">
-          <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 relative ">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-danger rounded-full border-2 border-white dark:border-gray-800"></span>
-          </button>
+          <div className="relative">
+            <button 
+              onClick={() => { setNotificationsOpen(!notificationsOpen); setDropdownOpen(false); }}
+              className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 relative "
+            >
+              <Bell className="w-5 h-5" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1.5 w-2.5 h-2.5 bg-danger rounded-full border-2 border-white dark:border-gray-800"></span>
+              )}
+            </button>
+
+            {/* Notifications Dropdown */}
+            {notificationsOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setNotificationsOpen(false)}></div>
+                <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
+                  <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                    <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">{unreadCount} New</span>
+                  </div>
+                  <div className="max-h-[320px] overflow-y-auto">
+                    {unreadCount === 0 ? (
+                      <div className="px-4 py-8 text-center text-sm text-gray-500 flex flex-col items-center">
+                        <Bell className="w-8 h-8 mb-2 text-gray-300 dark:text-gray-600" />
+                        <p>You're all caught up!</p>
+                      </div>
+                    ) : (
+                      <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                        {displayNotifications.map(inv => (
+                          <div 
+                            key={inv.id} 
+                            onClick={() => { setNotificationsOpen(false); navigate(`/invoices/${inv.id}`); }}
+                            className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors flex gap-3"
+                          >
+                            <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <span className="text-xs font-bold">!</span>
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1">Pending payment for {inv.customerName}</p>
+                              <p className="text-xs text-gray-500 mt-0.5">Invoice {inv.invoiceNumber} • LKR {inv.outstandingBalance?.toLocaleString() || inv.total?.toLocaleString()}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="px-4 py-2 border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+                    <button onClick={() => { setNotificationsOpen(false); navigate('/invoices'); }} className="text-xs font-medium text-primary hover:text-blue-600 w-full text-center">
+                      View all invoices
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
           
           <button 
             onClick={() => setDarkMode(!darkMode)}
@@ -186,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
 
           <div className="relative">
             <button 
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => { setDropdownOpen(!dropdownOpen); setNotificationsOpen(false); }}
               className="flex items-center gap-2 p-1 pl-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent dark:hover:border-gray-600 "
             >
               <div className="flex flex-col items-end hidden sm:flex mr-1">
