@@ -32,7 +32,10 @@ export const InvoiceForm: React.FC = () => {
       items: [{ id: uuidv4(), description: '', quantity: 1, unitPrice: undefined as unknown as number, discount: undefined as unknown as number, tax: undefined as unknown as number, amount: undefined as unknown as number }],
       discount: undefined as unknown as number,
       tax: undefined as unknown as number,
-      paidAmount: undefined as unknown as number
+      paidAmount: undefined as unknown as number,
+      subtotal: 0,
+      grandTotal: 0,
+      balance: 0
     }
   });
 
@@ -63,19 +66,15 @@ export const InvoiceForm: React.FC = () => {
     }
   }, [watchCustomerId, customers, setValue]);
 
-  // Calculate totals
+  // Calculate totals synchronously for the UI
+  const watchSubtotal = watchItems.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+  const watchGrandTotal = watchSubtotal - (Number(watchDiscount) || 0) + (Number(watchTax) || 0);
+  const watchBalance = watchGrandTotal - (Number(watchPaidAmount) || 0);
+
   useEffect(() => {
-    const subtotal = watchItems.reduce((sum, item) => {
-      const itemTotal = Number(item.amount) || 0;
-      return sum + itemTotal;
-    }, 0);
-    
-    const grandTotal = subtotal - (Number(watchDiscount) || 0) + (Number(watchTax) || 0);
-    const balance = grandTotal - (Number(watchPaidAmount) || 0);
-    
-    setValue("subtotal", subtotal);
-    setValue("grandTotal", grandTotal);
-    setValue("balance", balance);
+    setValue("subtotal", watchSubtotal);
+    setValue("grandTotal", watchGrandTotal);
+    setValue("balance", watchBalance);
 
     // Update individual item amounts to keep backward compatibility with unitPrice
     watchItems.forEach((item, index) => {
@@ -85,11 +84,7 @@ export const InvoiceForm: React.FC = () => {
         setValue(`items.${index}.discount`, 0);
       }
     });
-  }, [watchItems, watchDiscount, watchTax, watchPaidAmount, setValue]);
-
-  const watchSubtotal = watch("subtotal");
-  const watchGrandTotal = watch("grandTotal");
-  const watchBalance = watch("balance");
+  }, [watchItems, watchSubtotal, watchGrandTotal, watchBalance, setValue]);
 
   const onSubmit = async (data: Invoice) => {
     if (!data.customerId) {
