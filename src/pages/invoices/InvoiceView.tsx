@@ -125,17 +125,13 @@ export const InvoiceView: React.FC = () => {
             <thead>
               <tr className="border-b border-gray-200">
                 <th className="py-3 text-sm font-bold text-gray-900">Description</th>
-                <th className="py-3 text-sm font-bold text-gray-900 text-center">Qty</th>
-                <th className="py-3 text-sm font-bold text-gray-900 text-right">Unit Price</th>
-                <th className="py-3 text-sm font-bold text-gray-900 text-right">Amount</th>
+                <th className="py-3 text-sm font-bold text-gray-900 text-right">Amount (LKR)</th>
               </tr>
             </thead>
             <tbody>
               {invoice.items.map((item, index) => (
                 <tr key={index} className="border-b border-gray-100">
                   <td className="py-4 text-sm text-gray-700">{item.description}</td>
-                  <td className="py-4 text-sm text-gray-700 text-center">{item.quantity}</td>
-                  <td className="py-4 text-sm text-gray-700 text-right">{(item.unitPrice || 0).toLocaleString()}</td>
                   <td className="py-4 text-sm text-gray-900 font-medium text-right">{(item.amount || 0).toLocaleString()}</td>
                 </tr>
               ))}

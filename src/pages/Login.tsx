@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { motion } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, Loader2, KeyRound } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
@@ -65,39 +64,27 @@ export const Login: React.FC = () => {
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-accent/20 rounded-full blur-[100px] pointer-events-none mix-blend-multiply dark:mix-blend-lighten"></div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="flex justify-center"
         >
           <div className="w-16 h-16 bg-gradient-to-tr from-primary to-blue-400 rounded-2xl shadow-xl flex items-center justify-center transform rotate-3">
              <KeyRound className="w-8 h-8 text-white -rotate-3" />
           </div>
-        </motion.div>
+        </div>
         
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <h2 
           className="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tight dark:text-white"
         >
           Welcome Back
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+        </h2>
+        <p
           className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400"
         >
           Sign in to GM Billing System
-        </motion.p>
+        </p>
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+      <div 
         className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10"
       >
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl py-8 px-4 shadow-2xl sm:rounded-3xl sm:px-10 border border-white/20 dark:border-gray-700/50">
@@ -195,17 +182,14 @@ export const Login: React.FC = () => {
             </div>
           </form>
         </div>
-      </motion.div>
+      </div>
       
       {/* Footer text */}
-      <motion.p 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+      <p 
         className="mt-8 text-center text-xs text-gray-500 dark:text-gray-500 relative z-10"
       >
         © {new Date().getFullYear()} GM Transportation & Luxury Wedding Service. All rights reserved.
-      </motion.p>
+      </p>
     </div>
   );
 };

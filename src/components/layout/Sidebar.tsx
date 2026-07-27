@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -51,11 +50,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
   };
 
   return (
-    <motion.aside
-      initial={false}
-      animate={{ x: isOpen ? 0 : -280 }}
-      transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-      className="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl lg:shadow-none flex flex-col"
+    <aside
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl lg:shadow-none flex flex-col transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b border-gray-100 dark:border-gray-700">
         <div className="flex items-center gap-3">
@@ -92,7 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
               `}
             >
               {isActive && (
-                <motion.div layoutId="sidebar-active" className="absolute left-0 w-1 h-6 bg-primary rounded-r-full" />
+                <div className="absolute left-0 w-1 h-6 bg-primary rounded-r-full" />
               )}
               <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-primary dark:text-blue-400' : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300'}`} />
               <span className="truncate">{item.name}</span>
@@ -110,6 +106,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, isMobile })
           <span className="font-medium">Logout</span>
         </button>
       </div>
-    </motion.aside>
+    </aside>
   );
 };

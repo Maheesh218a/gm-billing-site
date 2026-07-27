@@ -1,8 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import type { HTMLMotionProps } from 'framer-motion';
 
-interface CardProps extends HTMLMotionProps<"div"> {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   premium?: boolean;
@@ -10,9 +8,7 @@ interface CardProps extends HTMLMotionProps<"div"> {
 
 export const Card: React.FC<CardProps> = ({ children, className = '', premium = false, ...props }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+    <div
       className={`
         bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700
         ${premium ? 'shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300' : 'shadow-sm'}
@@ -21,7 +17,7 @@ export const Card: React.FC<CardProps> = ({ children, className = '', premium = 
       {...props}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

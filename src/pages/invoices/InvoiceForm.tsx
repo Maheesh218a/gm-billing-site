@@ -66,7 +66,7 @@ export const InvoiceForm: React.FC = () => {
   // Calculate totals
   useEffect(() => {
     const subtotal = watchItems.reduce((sum, item) => {
-      const itemTotal = (item.quantity * item.unitPrice) - item.discount + item.tax;
+      const itemTotal = Number(item.amount) || 0;
       return sum + itemTotal;
     }, 0);
     
@@ -77,10 +77,13 @@ export const InvoiceForm: React.FC = () => {
     setValue("grandTotal", grandTotal);
     setValue("balance", balance);
 
-    // Update individual item amounts
+    // Update individual item amounts to keep backward compatibility with unitPrice
     watchItems.forEach((item, index) => {
-      const amt = (item.quantity * item.unitPrice) - item.discount + item.tax;
-      if (item.amount !== amt) setValue(`items.${index}.amount`, amt);
+      if (item.unitPrice !== item.amount) {
+        setValue(`items.${index}.unitPrice`, Number(item.amount) || 0);
+        setValue(`items.${index}.quantity`, 1);
+        setValue(`items.${index}.discount`, 0);
+      }
     });
   }, [watchItems, watchDiscount, watchTax, watchPaidAmount, setValue]);
 
@@ -169,17 +172,8 @@ export const InvoiceForm: React.FC = () => {
                     <div className="flex-1 w-full">
                       <Input placeholder="Description (e.g. Transport Charges)" {...register(`items.${index}.description` as const, { required: true })} />
                     </div>
-                    <div className="w-full md:w-24">
-                      <Input type="number" placeholder="Qty" {...register(`items.${index}.quantity` as const, { valueAsNumber: true })} />
-                    </div>
-                    <div className="w-full md:w-32">
-                      <Input type="number" placeholder="Unit Price" {...register(`items.${index}.unitPrice` as const, { valueAsNumber: true })} />
-                    </div>
-                    <div className="w-full md:w-24">
-                      <Input type="number" placeholder="Discount" {...register(`items.${index}.discount` as const, { valueAsNumber: true })} />
-                    </div>
-                    <div className="w-full md:w-32 pt-2 md:pt-0 font-semibold text-right dark:text-white">
-                      LKR {watchItems[index]?.amount?.toLocaleString() || 0}
+                    <div className="w-full md:w-48">
+                      <Input type="number" placeholder="Amount (LKR)" {...register(`items.${index}.amount` as const, { valueAsNumber: true })} />
                     </div>
                     {fields.length > 1 && (
                       <button type="button" onClick={() => remove(index)} className="text-danger hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors">
